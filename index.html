@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex"><!-- テスト公開中は検索に出さない。本公開時は削除 -->
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#04070f">
+<title>8 Islands</title>
+<meta name="description" content="浮遊する8つの島を、すべて水色に灯せ。WEB PUZZLE">
+<meta property="og:title" content="8 Islands">
+<meta property="og:description" content="浮遊する8つの島を、すべて水色に灯せ。WEB PUZZLE">
+<meta property="og:image" content="https://yuarika.github.io/8-islands/img/thumbnail.png">
+<meta property="og:url" content="https://yuarika.github.io/8-islands/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="8 Islands">
+<meta name="twitter:description" content="WEB PUZZLE">
+<meta name="twitter:image" content="https://yuarika.github.io/8-islands/img/thumbnail.png">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Cinzel:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="index.css">
+<script src="gate.js"></script>
+<script src="seg.js" defer></script>
+</head>
+<body class="intro-page">
+
+<div class="intro-background" aria-hidden="true">
+  <div class="bg-fog top"></div><div class="bg-fog bottom"></div>
+  <div class="bg-dust"></div>
+</div>
+
+<main class="intro-card">
+
+  <section class="intro-hero">
+    <h1 class="logo" aria-label="8 Islands"><svg class="logo-8" data-seg8 aria-hidden="true"></svg><span class="logo-word">Islands</span></h1>
+  </section>
+
+  <section class="about-section">
+    <div class="section-label"><span>01</span>ABOUT</div>
+    <div class="about-box">
+      <div class="about-corner tl"></div><div class="about-corner tr"></div>
+      <div class="about-corner bl"></div><div class="about-corner br"></div>
+      <p><strong>浮遊する8つの島を、すべて水色に灯せ。</strong></p>
+      <p class="about-text">暗い空間に、丸い島が浮かんでいる。<br>島から島へ飛び回り、法則を読み解こう。</p>
+    </div>
+  </section>
+
+  <section class="howto-section">
+    <div class="section-label"><span>02</span>HOW TO PLAY</div>
+    <ol class="howto-list">
+      <li><b>丸を選ぶ</b>盤面の丸を選ぶと、対応する島へ飛ぶ。</li>
+      <li><b>正しい島</b>着地でき、Stageが1つ進む。<br>その島が<em>水色に灯る</em>。すでに灯っていれば消える。</li>
+      <li><b>正しくない島</b>着地でき、Stageが1つ進む。<br>ただし、灯っていた光はすべて消える。</li>
+      <li><b>安全でない島</b>足場が消え、奈落へ落ちる。灯っていた光はすべて消える。<br>奈落に落ちた場合、Stage 1から始めるか、1つ前の数字のStageから始めることができる。</li>
+    </ol>
+    <p class="howto-note">※ Stageは99まで。100以上には進めない。</p>
+    <div class="about-warning"><span class="warning-mark">!</span><span>音が出ます。クリック／タップで操作してください。進行はこのブラウザに自動保存されます。</span></div>
+  </section>
+
+  <section class="action-section">
+    <div class="section-label"><span>03</span>ACTION</div>
+
+    <form class="gate" id="gate" hidden autocomplete="off">
+      <p class="gate-title"><span class="gate-mark" aria-hidden="true">🔒</span>テストプレイ中 ― パスワードを入力してください</p>
+      <div class="gate-row">
+        <input type="password" id="gate-input" placeholder="PASSWORD" aria-label="パスワード" autocomplete="off">
+        <button type="submit">解除</button>
+      </div>
+      <p class="gate-msg" id="gate-msg" role="status" aria-live="polite"></p>
+    </form>
+
+    <a class="action-button action-start" href="game.html" id="start">
+      <span class="action-number">01</span>
+      <span class="action-main"><span class="action-title">START</span><span class="action-sub" id="start-sub">謎解きをはじめる</span></span>
+      <span class="action-arrow">→</span>
+    </a>
+
+    <a class="action-button" id="post-on-x" href="#" target="_blank" rel="noopener noreferrer">
+      <span class="action-number">02</span>
+      <span class="action-main"><span class="action-title"><span class="x-symbol">𝕏</span> POST ON X</span><span class="action-sub">この謎に挑戦することをポスト</span></span>
+      <span class="action-arrow">↗</span>
+    </a>
+
+    <a class="action-button" id="profile" href="#" target="_blank" rel="noopener noreferrer">
+      <span class="action-number">03</span>
+      <span class="action-main"><span class="action-title">AUTHOR PROFILE</span><span class="action-sub">作者のプロフィールを見る</span></span>
+      <span class="action-arrow">↗</span>
+    </a>
+  </section>
+
+  <footer class="intro-footer">
+    <div>8 ISLANDS</div>
+    <div>WEB PUZZLE</div>
+    <div>© Yuarika</div>
+  </footer>
+</main>
+
+<script>
+/* ===== 設定(ここを書き換えるだけで投稿内容・リンクを変更できます) ===== */
+const X_POST_URL  = "https://yuarika.github.io/8-islands/";
+const X_POST_TEXT =
+  "WEB謎『8 Islands』に挑戦します！\n\n" +
+  X_POST_URL + "\n" +
+  "#Web_8Islands #VRC_8_Islands #謎解き";
+const PROFILE_URL = "https://yuarika.github.io/Yuarika_Profile/";
+
+document.getElementById("post-on-x").href =
+  "https://x.com/intent/post?text=" + encodeURIComponent(X_POST_TEXT);
+document.getElementById("profile").href = PROFILE_URL;
+
+/* パスワード制限(テスト公開用。gate.js の REQUIRE_PASSWORD で切り替え) */
+const startBtn = document.getElementById("start");
+function applyGate() {
+  const locked = !Gate.ok();
+  document.getElementById("gate").hidden = !locked;
+  startBtn.classList.toggle("locked", locked);
+  startBtn.setAttribute("aria-disabled", String(locked));
+}
+startBtn.addEventListener("click", e => {
+  if (!Gate.ok()) { e.preventDefault(); document.getElementById("gate-input").focus(); }
+});
+document.getElementById("gate").addEventListener("submit", e => {
+  e.preventDefault();
+  const input = document.getElementById("gate-input"), msg = document.getElementById("gate-msg");
+  if (Gate.check(input.value)) { msg.textContent = ""; applyGate(); startBtn.focus(); }
+  else { msg.textContent = "パスワードが違います。"; input.select(); }
+});
+applyGate();
+
+/* 進行中のデータがあれば「つづきから」と表示 */
+try {
+  const key = "eight-islands:web:v2:" + location.pathname.replace(/[^/]*$/, "");
+  const s = JSON.parse(localStorage.getItem(key) || "null");
+  if (s && s.cleared) document.getElementById("start-sub").textContent = "クリア済み ― 島をもう一度眺める";
+  else if (s && !s.tutorial) document.getElementById("start-sub").textContent = "つづきから再開する";
+} catch (e) {}
+</script>
+</body>
+</html>

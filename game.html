@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ja" data-gate="game">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex"><!-- テスト公開中は検索に出さない。本公開時は削除 -->
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#04070f">
+<title>8 Islands</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Cinzel:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="game.css">
+<script src="gate.js"></script>
+<script defer src="seg.js"></script>
+<script defer src="rules.js"></script>
+<script defer src="game.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <header class="bar">
+    <a class="back" href="index.html" aria-label="8 Islands タイトルへ戻る"><svg class="mini-8" data-seg8 aria-hidden="true"></svg><span>Islands</span></a>
+    <div class="bar-tools">
+      <span class="clear-badge" id="clear-badge" hidden>CLEARED</span>
+      <button type="button" class="tool" id="sound" aria-pressed="true" title="音のON/OFF"><span class="ico" aria-hidden="true">♪</span><span id="sound-label">ON</span></button>
+      <button type="button" class="tool" id="help">遊び方</button>
+      <button type="button" class="tool" id="reset">RESET</button>
+    </div>
+  </header>
+
+  <div class="play">
+    <section class="scene" id="scene" aria-label="浮遊する島々">
+      <canvas id="cv" aria-hidden="true"></canvas>
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    </section>
+
+    <section class="board" id="board" aria-label="選択ボード">
+      <div class="board-inner">
+        <div class="board-head" id="board-head">
+          <div class="stage-labels"><span>STAGE</span><span>NEXT</span></div>
+          <svg class="seg-display" id="digits" viewBox="0 0 400 128" role="img" aria-label="Stage 1 から 2"></svg>
+        </div>
+
+        <div class="board-grid" id="grid">
+
+          <div class="choices" role="group" aria-label="移動する島を選択">
+            <button type="button" class="orb" data-island="0" style="--x:64;--y:6"  aria-label="上の丸"></button>
+            <button type="button" class="orb" data-island="1" style="--x:81;--y:28" aria-label="右上の丸"></button>
+            <button type="button" class="orb" data-island="2" style="--x:81;--y:72" aria-label="右下の丸"></button>
+            <button type="button" class="orb" data-island="3" style="--x:64;--y:94" aria-label="下の丸"></button>
+            <button type="button" class="orb" data-island="4" style="--x:47;--y:72" aria-label="左下の丸"></button>
+            <button type="button" class="orb" data-island="5" style="--x:47;--y:28" aria-label="左上の丸"></button>
+            <button type="button" class="orb" data-island="6" style="--x:64;--y:50" aria-label="中央の丸"></button>
+            <p class="instruction" style="--x:15;--y:50"><button type="button" class="orb inline" data-island="7" aria-label="〇"></button><span>を選択</span></p>
+          </div>
+        </div>
+
+        <div class="limit-note" id="limit-note" hidden>
+          <p>Stage 99 が最後。100 以上には進めない。</p>
+          <div class="limit-actions">
+            <button type="button" class="tool" data-restart="one">1から始める</button>
+            <button type="button" class="tool" data-restart="prev">1つ前から始める</button>
+          </div>
+        </div>
+        <p class="tutorial" id="tutorial"><b>TUTORIAL</b>Stage 1 では、<span class="tut-blue">右下の青く光る島</span>が<br>安全で正しい島です。</p>
+        <p class="board-msg" id="message" role="status" aria-live="polite"></p>
+
+        <div class="board-foot">
+          <div class="progress" aria-label="灯った島の数"><span id="count">0</span><small>/ 8</small><div class="pips" id="pips"></div></div>
+          <div class="clear-tools" id="clear-tools" hidden>
+            <button type="button" class="tool accent" id="show-clear">クリア画面</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- 奈落 -->
+<div class="overlay abyss" id="abyss" hidden>
+  <div class="panel">
+    <p class="panel-eyebrow">THE ABYSS</p>
+    <h2>奈落に落ちた</h2>
+    <p class="panel-text">灯っていた光は、すべて消えた。</p>
+    <div class="panel-actions">
+      <button type="button" class="btn" id="retry-one">1から始める</button>
+      <button type="button" class="btn" id="retry-prev">1つ前から始める</button>
+    </div>
+  </div>
+</div>
+
+<!-- Stage 99 -->
+<div class="overlay abyss" id="limit" hidden>
+  <div class="panel">
+    <p class="panel-eyebrow">STAGE 99</p>
+    <h2>これ以上は進めない</h2>
+    <p class="panel-text">Stage 100 以上には進めない。<br>どこから始めますか？（灯っていた光はすべて消える）</p>
+    <div class="panel-actions">
+      <button type="button" class="btn" data-restart="one">1から始める</button>
+      <button type="button" class="btn" data-restart="prev">1つ前から始める</button>
+      <button type="button" class="btn ghost" data-close>このまま</button>
+    </div>
+  </div>
+</div>
+
+<!-- 遊び方 -->
+<div class="overlay" id="howto" hidden>
+  <div class="panel">
+    <p class="panel-eyebrow">HOW TO PLAY</p>
+    <h2>8つの島に、光を灯す。</h2>
+    <ol class="panel-list">
+      <li><b>丸を選ぶ</b>：ボードの丸を選ぶと、対応する島へ飛ぶ。</li>
+      <li><b>正しい島</b>：着地でき、Stageが1つ進む。その島が<em>水色に灯る</em>。すでに灯っていれば消える。</li>
+      <li><b>正しくない島</b>：着地でき、Stageが1つ進む。ただし、灯っていた光はすべて消える。</li>
+      <li><b>安全でない島</b>：足場が消え、奈落へ落ちる。灯っていた光はすべて消える。奈落に落ちた場合、Stage 1から始めるか、1つ前の数字のStageから始めることができる。</li>
+    </ol>
+    <p class="panel-text">Stageは99まで。100以上には進めない。</p>
+    <p class="panel-text goal">すべての丸い島を水色に灯せばクリア。</p>
+    <div class="panel-actions"><button type="button" class="btn primary" data-close>島へ戻る</button></div>
+  </div>
+</div>
+
+<!-- リセット確認 -->
+<div class="overlay" id="reset-dialog" hidden>
+  <div class="panel small">
+    <p class="panel-eyebrow">RESET</p>
+    <h2>最初から始めますか？</h2>
+    <p class="panel-text">現在の進行とクリア状態がリセットされます。</p>
+    <div class="panel-actions">
+      <button type="button" class="btn" data-close>戻る</button>
+      <button type="button" class="btn primary" id="confirm-reset">最初から始める</button>
+    </div>
+  </div>
+</div>
+
+<!-- クリア -->
+<div class="overlay clear" id="clear" hidden>
+  <div class="clear-box">
+    <p class="clear-logo" aria-label="8 Islands"><svg class="logo-8" data-seg8 aria-hidden="true"></svg><span>Islands</span></p>
+    <h2 class="clear-title">GAME CLEARED!!</h2>
+    <p class="clear-sub">8つの島に光を灯した！</p>
+    <p class="clear-tag" id="clear-tag">#Web_8Islands</p>
+    <div class="clear-btns">
+      <button type="button" class="btn x" id="x-post">𝕏 クリアをポスト</button>
+      <a class="btn" id="profile" href="#" target="_blank" rel="noopener noreferrer">作者プロフィール</a>
+    </div>
+    <div class="clear-btns sub">
+      <button type="button" class="btn ghost" data-close>島を眺める</button>
+      <a class="btn ghost" href="index.html">タイトルへ</a>
+    </div>
+    <p class="clear-note">ここからは、どの島へも自由に移動できます。</p>
+  </div>
+</div>
+
+<noscript><p class="noscript">このゲームを遊ぶにはJavaScriptを有効にしてください。</p></noscript>
+</body>
+</html>
