@@ -7,7 +7,7 @@ const R = window.IslandRules;
 const TITLE = '8 Islands';
 const PUZZLE_URL = 'https://yuarika.github.io/8-islands/';
 const ANNOUNCEMENT_POST_URL = '';            // ← 告知ポストのURL(空欄なら投稿文に含めない)
-const CLEAR_TAGS = '#Web_8Islands';
+const CLEAR_TAGS = '#Web_8_Islands';
 const PROFILE_URL = 'https://yuarika.github.io/Yuarika_Profile/';
 
 /* 飛行: speed は速さの倍率、height は山なりの高さの倍率 */
