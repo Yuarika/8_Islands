@@ -23,10 +23,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Cinzel:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="index.css">
-<script src="gate.js"></script>
-<script src="config.js"></script>
-<script src="seg.js" defer></script>
+<link rel="stylesheet" href="index.css?v=20261122d">
+<script src="gate.js?v=20261122d"></script>
+<script src="config.js?v=20261122d"></script>
+<script src="seg.js?v=20261122d" defer></script>
 </head>
 <body class="intro-page">
 
@@ -103,7 +103,12 @@
 
 <script>
 /* 投稿・リンクの設定は config.js にまとめています */
-const CFG = window.SITE_CONFIG;
+const CFG = Object.assign({
+  ANNOUNCEMENT_POST_URL: "", PUZZLE_URL: "https://yuarika.github.io/8-islands/",
+  CHALLENGE_TEXT: "WEB謎『8 Islands』に挑戦します！", CHALLENGE_TAGS: "#Web_8_Islands #謎解き",
+  CLEAR_TEXT: "Web謎「8 Islands」をクリアしました！", CLEAR_TAGS: "#Web_8_Islands",
+  PROFILE_URL: "https://yuarika.github.io/Yuarika_Profile/"
+}, window.SITE_CONFIG || {});
 document.getElementById("post-on-x").href = "https://x.com/intent/post?text=" +
   encodeURIComponent(CFG.CHALLENGE_TEXT + "\n\n" + CFG.PUZZLE_URL + "\n" + CFG.CHALLENGE_TAGS);
 document.getElementById("profile").href = CFG.PROFILE_URL;

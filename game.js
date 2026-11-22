@@ -4,7 +4,13 @@ const R = window.IslandRules;
 
 /* ================= 設定 ================= */
 /* 投稿・リンクの設定は config.js にまとめています */
-const CFG = window.SITE_CONFIG;
+// config.js が読めなかった場合でも動くよう、初期値を用意しておく
+const CFG = Object.assign({
+  ANNOUNCEMENT_POST_URL: '', PUZZLE_URL: 'https://yuarika.github.io/8-islands/',
+  CHALLENGE_TEXT: 'WEB謎『8 Islands』に挑戦します！', CHALLENGE_TAGS: '#Web_8_Islands #謎解き',
+  CLEAR_TEXT: 'Web謎「8 Islands」をクリアしました！', CLEAR_TAGS: '#Web_8_Islands',
+  PROFILE_URL: 'https://yuarika.github.io/Yuarika_Profile/'
+}, window.SITE_CONFIG || {});
 
 /* 飛行: speed は速さの倍率、height は山なりの高さの倍率 */
 const FLIGHT = { speed: 1.0, height: 1.0 };

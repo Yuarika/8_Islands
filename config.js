@@ -15,7 +15,7 @@ window.SITE_CONFIG = {
 
   // スタート画面「POST ON X」の投稿文
   CHALLENGE_TEXT: 'WEB謎『8 Islands』に挑戦します！',
-  CHALLENGE_TAGS: '#Web_8_Islands #VRC_8_Islands #謎解き',
+  CHALLENGE_TAGS: '#Web_8_Islands #謎解き',
 
   // クリア画面「クリアをポスト」の投稿文
   // 投稿は「CLEAR_TEXT → 告知ポストURL → 公開URL → CLEAR_TAGS」の順になります。
