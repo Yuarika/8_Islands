@@ -20,6 +20,8 @@ const FLIGHT = { speed: 1.0, height: 1.0 };
    例: const SFX_FILES = { clear: 'sfx/clear.mp3' }; */
 const SFX_FILES = {};
 const SFX_VOL = 0.8;
+/* 環境音(低い持続音): false で鳴らさない */
+const AMBIENT = false;
 
 /* ================= 状態と保存 ================= */
 const $ = id => document.getElementById(id);
@@ -104,7 +106,7 @@ function sfx(k, arg) {
   } catch (e) { /* 音が出なくても進行する */ }
 }
 function startAmbient() {
-  if (ambientOn || !soundOn) return;
+  if (!AMBIENT || ambientOn || !soundOn) return;
   const c = actx(); if (!c) return;
   ambientOn = true;
   const f = c.createBiquadFilter(), g = c.createGain(), lfo = c.createOscillator(), lg = c.createGain();
