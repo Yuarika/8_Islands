@@ -8,7 +8,7 @@ window.SITE_CONFIG = {
   // 告知をポストしたら、'' の中にそのポストのURLを貼ってください。
   // 例: 'https://x.com/yuarikaa/status/1234567890123456789'
   // 空欄のままなら、クリアポストには含まれません。
-  ANNOUNCEMENT_POST_URL: '',
+  ANNOUNCEMENT_POST_URL: 'https://x.com/yuarikaa/status/2124438002332262473',
 
   // この謎の公開URL（ポストに入るURL）
   // 末尾の ?v=3 は、Xが古いカード情報（サムネイルなし）を使わないようにするためのものです。
