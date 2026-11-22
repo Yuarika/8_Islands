@@ -10,8 +10,10 @@ window.SITE_CONFIG = {
   // 空欄のままなら、クリアポストには含まれません。
   ANNOUNCEMENT_POST_URL: '',
 
-  // この謎の公開URL
-  PUZZLE_URL: 'https://yuarika.github.io/8_Islands/',
+  // この謎の公開URL（ポストに入るURL）
+  // 末尾の ?v=3 は、Xが古いカード情報（サムネイルなし）を使わないようにするためのものです。
+  // サムネイルが出なくなったら数字を変えてください（?v=4 など）。ページはそのまま開けます。
+  PUZZLE_URL: 'https://yuarika.github.io/8_Islands/?v=3',
 
   // スタート画面「POST ON X」の投稿文
   CHALLENGE_TEXT: 'WEB謎『8 Islands』に挑戦します！',
