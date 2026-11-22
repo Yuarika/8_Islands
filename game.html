@@ -12,6 +12,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Cinzel:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="game.css">
 <script src="gate.js"></script>
+<script defer src="config.js"></script>
 <script defer src="seg.js"></script>
 <script defer src="rules.js"></script>
 <script defer src="game.js"></script>
@@ -44,19 +45,19 @@
         <div class="board-grid" id="grid">
 
           <div class="choices" role="group" aria-label="移動する島を選択">
-            <button type="button" class="orb" data-island="0" style="--x:64;--y:6"  aria-label="上の丸"></button>
-            <button type="button" class="orb" data-island="1" style="--x:81;--y:28" aria-label="右上の丸"></button>
-            <button type="button" class="orb" data-island="2" style="--x:81;--y:72" aria-label="右下の丸"></button>
-            <button type="button" class="orb" data-island="3" style="--x:64;--y:94" aria-label="下の丸"></button>
-            <button type="button" class="orb" data-island="4" style="--x:47;--y:72" aria-label="左下の丸"></button>
-            <button type="button" class="orb" data-island="5" style="--x:47;--y:28" aria-label="左上の丸"></button>
+            <button type="button" class="orb" data-island="0" style="--x:64;--y:10"  aria-label="上の丸"></button>
+            <button type="button" class="orb" data-island="1" style="--x:81;--y:30" aria-label="右上の丸"></button>
+            <button type="button" class="orb" data-island="2" style="--x:81;--y:70" aria-label="右下の丸"></button>
+            <button type="button" class="orb" data-island="3" style="--x:64;--y:90" aria-label="下の丸"></button>
+            <button type="button" class="orb" data-island="4" style="--x:47;--y:70" aria-label="左下の丸"></button>
+            <button type="button" class="orb" data-island="5" style="--x:47;--y:30" aria-label="左上の丸"></button>
             <button type="button" class="orb" data-island="6" style="--x:64;--y:50" aria-label="中央の丸"></button>
             <p class="instruction" style="--x:15;--y:50"><button type="button" class="orb inline" data-island="7" aria-label="〇"></button><span>を選択</span></p>
           </div>
         </div>
 
         <div class="limit-note" id="limit-note" hidden>
-          <p>Stage 99 が最後。100 以上には進めない。</p>
+          <p>Stage 100 以上には進めない。</p>
           <div class="limit-actions">
             <button type="button" class="tool" data-restart="one">1から始める</button>
             <button type="button" class="tool" data-restart="prev">1つ前から始める</button>
@@ -81,7 +82,7 @@
   <div class="panel">
     <p class="panel-eyebrow">THE ABYSS</p>
     <h2>奈落に落ちた</h2>
-    <p class="panel-text">灯っていた光は、すべて消えた。</p>
+    <p class="panel-text">灯っていた光はすべて消えた</p>
     <div class="panel-actions">
       <button type="button" class="btn" id="retry-one">1から始める</button>
       <button type="button" class="btn" id="retry-prev">1つ前から始める</button>
@@ -94,7 +95,7 @@
   <div class="panel">
     <p class="panel-eyebrow">STAGE 99</p>
     <h2>これ以上は進めない</h2>
-    <p class="panel-text">Stage 100 以上には進めない。<br>どこから始めますか？（灯っていた光はすべて消える）</p>
+    <p class="panel-text">Stage 100 以上には進めない。<br>始め直す場合、灯っていた光はすべて消える。</p>
     <div class="panel-actions">
       <button type="button" class="btn" data-restart="one">1から始める</button>
       <button type="button" class="btn" data-restart="prev">1つ前から始める</button>
@@ -107,7 +108,7 @@
 <div class="overlay" id="howto" hidden>
   <div class="panel">
     <p class="panel-eyebrow">HOW TO PLAY</p>
-    <h2>8つの島に、光を灯す。</h2>
+    <h2>遊び方</h2>
     <ol class="panel-list">
       <li><b>丸を選ぶ</b>：ボードの丸を選ぶと、対応する島へ飛ぶ。</li>
       <li><b>正しい島</b>：着地でき、Stageが1つ進む。その島が<em>水色に灯る</em>。すでに灯っていれば消える。</li>
@@ -148,7 +149,7 @@
       <button type="button" class="btn ghost" data-close>島を眺める</button>
       <a class="btn ghost" href="index.html">タイトルへ</a>
     </div>
-    <p class="clear-note">ここからは、どの島へも自由に移動できます。</p>
+    <p class="clear-note">クリア後はどの島へも自由に移動できます。</p>
   </div>
 </div>
 

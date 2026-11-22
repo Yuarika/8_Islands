@@ -3,12 +3,8 @@
 const R = window.IslandRules;
 
 /* ================= 設定 ================= */
-/* クリア投稿・リンク */
-const TITLE = '8 Islands';
-const PUZZLE_URL = 'https://yuarika.github.io/8-islands/';
-const ANNOUNCEMENT_POST_URL = '';            // ← 告知ポストのURL(空欄なら投稿文に含めない)
-const CLEAR_TAGS = '#Web_8_Islands';
-const PROFILE_URL = 'https://yuarika.github.io/Yuarika_Profile/';
+/* 投稿・リンクの設定は config.js にまとめています */
+const CFG = window.SITE_CONFIG;
 
 /* 飛行: speed は速さの倍率、height は山なりの高さの倍率 */
 const FLIGHT = { speed: 1.0, height: 1.0 };
@@ -448,7 +444,7 @@ async function select(index) {
   if (r.outcome === 'blocked') return;
   if (r.outcome === 'limit') {               // Stage 99 より先へは進めない
     sfx('wrong'); toast('100以上には進めない', 'bad');
-    setMessage('Stage 99 が最後。この先へは進めない。');
+    setMessage('Stage 100 以上には進めない。');
     openOverlay('limit');
     return;
   }
@@ -477,12 +473,12 @@ async function select(index) {
     setMessage('正しい島に着地した。島に光が灯った。');
   } else if (r.outcome === 'toggle') {
     sfx('toggle'); toast('光が消えた');
-    setMessage('正しい島に着地した。灯っていた光が消えた。');
+    setMessage('正しい島に着地した。この島の光が消えた。');
   } else if (r.outcome === 'wrong') {
     sfx('wrong'); flicker = 1; toast('光がすべて消えた', 'bad');
-    setMessage('着地はできた。……だが、灯っていた光はすべて消えた。');
+    setMessage('正しくない島に着地した。灯っていた光はすべて消えた。');
   } else if (r.outcome === 'free') {
-    setMessage('どの島へも、自由に渡れる。');
+    setMessage('どの島へも自由に移動できる。');
   }
   $('board').classList.remove('away'); renderBoard();
   if (r.outcome === 'clear') celebrate();
@@ -502,7 +498,7 @@ function restart(previous) {
   traveler.a = 0; traveler.trail.length = 0; dim = 0; duck(1, .6);
   $('board').classList.remove('away');
   renderBoard();
-  setMessage('上空に戻った。光は、すべて消えている。');
+  setMessage('ボードの丸を選んでください');
   orbs[2].focus({ preventScroll: true });
 }
 
@@ -520,7 +516,7 @@ $('confirm-reset').addEventListener('click', () => {
   state = R.initial(); save(); setRevealed(false); closeOverlay($('reset-dialog'));
   vis.fill(1); traveler.a = 0; dim = 0; duck(1, .3);
   $('board').classList.remove('away'); renderBoard();
-  setMessage('ボードの丸を選んで、島へ降り立とう。');
+  setMessage('ボードの丸を選んでください');
 });
 document.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', () => { sfx('select'); closeOverlay(b.closest('.overlay')); }));
 document.addEventListener('keydown', e => {
@@ -537,22 +533,21 @@ $('sound').addEventListener('click', () => {
 document.addEventListener('pointerdown', startAmbient, { once: true });
 
 /* ================= クリア画面 ================= */
-$('clear-tag').textContent = CLEAR_TAGS;
-$('profile').href = PROFILE_URL;
+$('clear-tag').textContent = CFG.CLEAR_TAGS;
+$('profile').href = CFG.PROFILE_URL;
 $('x-post').addEventListener('click', () => {
   sfx('select');
-  const text = 'Web謎「' + TITLE + '」をクリアしました！\n\n' +
-    (ANNOUNCEMENT_POST_URL ? ANNOUNCEMENT_POST_URL + '\n\n' : '') +
-    PUZZLE_URL + '\n\n' + CLEAR_TAGS;
+  const text = CFG.CLEAR_TEXT + '\n\n' +
+    (CFG.ANNOUNCEMENT_POST_URL ? CFG.ANNOUNCEMENT_POST_URL + '\n\n' : '') +
+    CFG.PUZZLE_URL + '\n\n' + CFG.CLEAR_TAGS;
   window.open('https://x.com/intent/post?text=' + encodeURIComponent(text), '_blank', 'noopener,noreferrer');
 });
 
 /* ================= 開始 ================= */
 renderBoard();
 if (state.fallen) { $('board').classList.add('away'); openOverlay('abyss'); }
-else if (state.cleared) setMessage('クリア済み。どの島へも、自由に渡れる。');
-else if (state.island === 8) setMessage('ボードの丸を選んで、島へ降り立とう。');
-else setMessage('続きから。法則を見つけ、光をつなごう。');
+else if (state.cleared) setMessage('クリア済み。どの島へも自由に移動できる。');
+else setMessage('ボードの丸を選んでください');
 if (!saveOK) setMessage('この環境では進行を保存できません。ページを閉じると進行が失われます。');
 requestAnimationFrame(frame);
 })();

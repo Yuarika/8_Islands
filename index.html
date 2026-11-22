@@ -25,6 +25,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Cinzel:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="index.css">
 <script src="gate.js"></script>
+<script src="config.js"></script>
 <script src="seg.js" defer></script>
 </head>
 <body class="intro-page">
@@ -66,7 +67,7 @@
     <div class="section-label"><span>03</span>ACTION</div>
 
     <form class="gate" id="gate" hidden autocomplete="off">
-      <p class="gate-title"><span class="gate-mark" aria-hidden="true">🔒</span>テストプレイ中 ― パスワードを入力してください</p>
+      <p class="gate-title"><span class="gate-mark" aria-hidden="true">🔒</span>テストプレイ中です。パスワードを入力してください</p>
       <div class="gate-row">
         <input type="password" id="gate-input" placeholder="PASSWORD" aria-label="パスワード" autocomplete="off">
         <button type="submit">解除</button>
@@ -101,17 +102,11 @@
 </main>
 
 <script>
-/* ===== 設定(ここを書き換えるだけで投稿内容・リンクを変更できます) ===== */
-const X_POST_URL  = "https://yuarika.github.io/8-islands/";
-const X_POST_TEXT =
-  "WEB謎『8 Islands』に挑戦します！\n\n" +
-  X_POST_URL + "\n" +
-  "#Web_8_Islands #VRC_8_Islands #謎解き";
-const PROFILE_URL = "https://yuarika.github.io/Yuarika_Profile/";
-
-document.getElementById("post-on-x").href =
-  "https://x.com/intent/post?text=" + encodeURIComponent(X_POST_TEXT);
-document.getElementById("profile").href = PROFILE_URL;
+/* 投稿・リンクの設定は config.js にまとめています */
+const CFG = window.SITE_CONFIG;
+document.getElementById("post-on-x").href = "https://x.com/intent/post?text=" +
+  encodeURIComponent(CFG.CHALLENGE_TEXT + "\n\n" + CFG.PUZZLE_URL + "\n" + CFG.CHALLENGE_TAGS);
+document.getElementById("profile").href = CFG.PROFILE_URL;
 
 /* パスワード制限(テスト公開用。gate.js の REQUIRE_PASSWORD で切り替え) */
 const startBtn = document.getElementById("start");
@@ -136,7 +131,7 @@ applyGate();
 try {
   const key = "eight-islands:web:v2:" + location.pathname.replace(/[^/]*$/, "");
   const s = JSON.parse(localStorage.getItem(key) || "null");
-  if (s && s.cleared) document.getElementById("start-sub").textContent = "クリア済み ― 島をもう一度眺める";
+  if (s && s.cleared) document.getElementById("start-sub").textContent = "クリア済み";
   else if (s && !s.tutorial) document.getElementById("start-sub").textContent = "つづきから再開する";
 } catch (e) {}
 </script>
