@@ -11,7 +11,7 @@ window.SITE_CONFIG = {
   ANNOUNCEMENT_POST_URL: '',
 
   // この謎の公開URL
-  PUZZLE_URL: 'https://yuarika.github.io/8-islands/',
+  PUZZLE_URL: 'https://yuarika.github.io/8_Islands/',
 
   // スタート画面「POST ON X」の投稿文
   CHALLENGE_TEXT: 'WEB謎『8 Islands』に挑戦します！',
