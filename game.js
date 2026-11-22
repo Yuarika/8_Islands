@@ -171,7 +171,7 @@ function renderBoard() {
 
 /* ================= 情景(canvas) ================= */
 const cv = $('cv'), g = cv.getContext('2d');
-const ISL = [[900, 170], [1085, 318], [1085, 582], [900, 730], [715, 582], [715, 318], [900, 450], [425, 452]];
+const ISL = [[900, 170], [1085, 318], [1085, 582], [900, 730], [715, 582], [715, 318], [900, 450], [330, 452]];
 const SKY = [900, 40];
 const scaleOf = i => i === 7 ? .8 : .72 + (ISL[i][1] - 170) / 560 * .36;
 function rng(seed) { return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
@@ -186,7 +186,7 @@ const ROCKS = ISL.map((_, i) => {
 });
 const DUST = Array.from({ length: 70 }, (_, i) => { const r = rng(500 + i); return { x: r() * 2000 - 200, y: r() * 1100 - 100, s: .6 + r() * 1.8, v: 4 + r() * 12, p: r() * 6 }; });
 /* 表示枠: 最初は7島だけ。〇を選ぶと左へ広がり、8つ目の島が見える */
-const FRAME7 = [575, 1225], FRAME8 = [300, 1225], FRAME_Y = [60, 830];
+const FRAME7 = [575, 1225], FRAME8 = [210, 1225], FRAME_Y = [60, 830];
 
 const light = ISL.map((_, i) => (state.lights & 1 << i) ? 1 : 0);
 const vis = ISL.map(() => 1);

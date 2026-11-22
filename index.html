@@ -2,7 +2,6 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="robots" content="noindex"><!-- テスト公開中は検索に出さない。本公開時は削除 -->
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#04070f">
 <title>8 Islands</title>
@@ -23,10 +22,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Cinzel:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="index.css?v=20261122d">
-<script src="gate.js?v=20261122d"></script>
-<script src="config.js?v=20261122d"></script>
-<script src="seg.js?v=20261122d" defer></script>
+<link rel="stylesheet" href="index.css?v=20261122e">
+<script src="config.js?v=20261122e"></script>
+<script src="seg.js?v=20261122e" defer></script>
 </head>
 <body class="intro-page">
 
@@ -66,14 +64,6 @@
   <section class="action-section">
     <div class="section-label"><span>03</span>ACTION</div>
 
-    <form class="gate" id="gate" hidden autocomplete="off">
-      <p class="gate-title"><span class="gate-mark" aria-hidden="true">🔒</span>テストプレイ中です。パスワードを入力してください</p>
-      <div class="gate-row">
-        <input type="password" id="gate-input" placeholder="PASSWORD" aria-label="パスワード" autocomplete="off">
-        <button type="submit">解除</button>
-      </div>
-      <p class="gate-msg" id="gate-msg" role="status" aria-live="polite"></p>
-    </form>
 
     <a class="action-button action-start" href="game.html" id="start">
       <span class="action-number">01</span>
@@ -112,25 +102,6 @@ const CFG = Object.assign({
 document.getElementById("post-on-x").href = "https://x.com/intent/post?text=" +
   encodeURIComponent(CFG.CHALLENGE_TEXT + "\n\n" + CFG.PUZZLE_URL + "\n" + CFG.CHALLENGE_TAGS);
 document.getElementById("profile").href = CFG.PROFILE_URL;
-
-/* パスワード制限(テスト公開用。gate.js の REQUIRE_PASSWORD で切り替え) */
-const startBtn = document.getElementById("start");
-function applyGate() {
-  const locked = !Gate.ok();
-  document.getElementById("gate").hidden = !locked;
-  startBtn.classList.toggle("locked", locked);
-  startBtn.setAttribute("aria-disabled", String(locked));
-}
-startBtn.addEventListener("click", e => {
-  if (!Gate.ok()) { e.preventDefault(); document.getElementById("gate-input").focus(); }
-});
-document.getElementById("gate").addEventListener("submit", e => {
-  e.preventDefault();
-  const input = document.getElementById("gate-input"), msg = document.getElementById("gate-msg");
-  if (Gate.check(input.value)) { msg.textContent = ""; applyGate(); startBtn.focus(); }
-  else { msg.textContent = "パスワードが違います。"; input.select(); }
-});
-applyGate();
 
 /* 進行中のデータがあれば「つづきから」と表示 */
 try {

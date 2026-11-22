@@ -58,17 +58,3 @@ body.intro-page{min-height:100vh;background:radial-gradient(ellipse at 50% -10%,
 .action-arrow{font-size:1.3rem;font-weight:900}
 .intro-footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.4rem;margin-top:1.3rem;padding-top:.8rem;border-top:1px solid var(--line);font-size:.68rem;letter-spacing:.16em;color:rgba(228,241,255,.5)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}
-
-/* ---- パスワード ---- */
-.gate{margin-bottom:.8rem;padding:.9rem 1rem;border:1px solid rgba(127,232,255,.45);border-radius:8px;background:rgba(4,9,18,.6)}
-.gate-title{font-size:.85rem;font-weight:900;letter-spacing:.06em;color:var(--pale);display:flex;gap:.5em;align-items:center}
-.gate-row{display:flex;gap:.5rem;margin-top:.6rem}
-.gate input{flex:1;min-width:0;font:500 1rem "Zen Kaku Gothic New",sans-serif;letter-spacing:.12em;padding:.6rem .8rem;border-radius:6px;border:1px solid var(--line);background:#050b16;color:var(--pale)}
-.gate input:focus{outline:2px solid var(--cyan);outline-offset:1px}
-.gate button{font:900 .9rem "Zen Kaku Gothic New",sans-serif;letter-spacing:.15em;padding:.6rem 1.1rem;border-radius:6px;border:1px solid var(--cyan);background:var(--cyan);color:var(--abyss);cursor:pointer}
-.gate button:hover{background:#b8f4ff}
-.gate-msg{min-height:1.2em;margin-top:.4rem;font-size:.8rem;color:#ffb4b4}
-.gate-msg:empty{display:none}
-.action-start.locked{filter:grayscale(.8) brightness(.6);box-shadow:none;cursor:not-allowed}
-.action-start.locked:hover{transform:none}
-.howto-note{margin-top:.6rem;font-size:.82rem;color:#c8d6e8}
