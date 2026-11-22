@@ -8,7 +8,7 @@ window.SITE_CONFIG = {
   // 告知をポストしたら、'' の中にそのポストのURLを貼ってください。
   // 例: 'https://x.com/yuarikaa/status/1234567890123456789'
   // 空欄のままなら、クリアポストには含まれません。
-  ANNOUNCEMENT_POST_URL: '',
+  ANNOUNCEMENT_POST_URL: 'https://x.com/yuarikaa/status/2124105119134572728',
 
   // この謎の公開URL
   PUZZLE_URL: 'https://yuarika.github.io/8_Islands/',
